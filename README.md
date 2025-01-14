@@ -90,47 +90,5 @@ coverage run -m pytest
 ```
 
 
-## <a name="troubleshooting">Troubleshooting</a>
-
-If for some reason you get an error similar to bellow, is because the DATABASE_URL is configured to `postgres:///everycheese` and because of it the generated `DATABASES` settings are configured to connect on PostgreSQL using the socket mode.
-In that case, you must create the database manually because the `sqlcreate` is not capable to correctly generate the SQL query in this case.
-
-```sql
-ERROR:  syntax error at or near "WITH"
-LINE 1: CREATE USER  WITH ENCRYPTED PASSWORD '' CREATEDB;
-                     ^
-ERROR:  zero-length delimited identifier at or near """"
-LINE 1: CREATE DATABASE everycheese WITH ENCODING 'UTF-8' OWNER "";
-                                                             ^
-ERROR:  syntax error at or near ";"
-LINE 1: GRANT ALL PRIVILEGES ON DATABASE everycheese TO ;
-```
-
-
-
-```sql
-ERROR:  role "myuser" already exists
-ERROR:  database "everycheese" already exists
-GRANT
-```
-
-<a name="troubleshooting-delete-database">You can delete the database and the user with the commands below and then [perform step 5 again](#step-5).</a>
-
-> :warning: **Be very careful here!**: The commands below erase data, and should only be executed on your local development machine and **NEVER** on a production server.
-
-
-On Linux:
-
-```bash
-sudo -u postgres dropdb -U postgres --if-exists everycheese
-sudo -u postgres dropuser -U postgres --if-exists myuser
-```
-
-On Mac:
-
-```bash
-dropdb --if-exists everycheese
-dropuser --if-exists myuser
-```
 
 
